@@ -4,22 +4,25 @@
   <form>
     <div class="form-group">
       <label for="cep">CEP:</label>
-      <input type="text" id="cep" name="cep" required>
+      <input type="text" id="cep" name="cep" required formControlName="cep">
     </div>
 
     <div class="form-group">
-      <label for="complemento">Complemento:</label>
-      <input type="text" id="complemento" name="complemento">
+      <label for="Logradouro">Logradouro:</label>
+      <input type="text" id="Logradouro" name="Logradouro"  required formControlName="Logradouro">
     </div>
 
     <div class="form-group">
       <label for="bairro">Bairro:</label>
-      <input type="text" id="bairro" name="bairro" required>
+      <input type="text" id="bairro" name="bairro" required  required formControlName="bairro">
     </div>
-
+    <div class="form-group">
+      <label for="bairro">Cidade:</label>
+      <input type="text" id="bairro" name="Cidade" required  required formControlName="Cidade">
+    </div>
     <div class="form-group">
       <label for="estado">Estado:</label>
-      <input type="text" id="estado" name="estado" required>
+      <input type="text" id="estado" name="estado" required  required formControlName="estado">
     </div>
 
     <button type="submit">Enviar</button>
