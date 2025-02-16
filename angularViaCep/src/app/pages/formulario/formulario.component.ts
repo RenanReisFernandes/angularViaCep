@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ViacepService } from '../../services/viacep.service';
 @Component({
   selector: 'app-formulario',
   standalone: false,
@@ -7,18 +8,22 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
   styleUrl: './formulario.component.css'
 })
 export class FormularioComponent implements OnInit {
+onSubmit() {
+throw new Error('Method not implemented.');
+}
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder){}
+  constructor(private fb: FormBuilder,private viacepService: ViacepService){}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+    this.initializeForm();
+    this.observePreenchimentoSep();
+     }
 
   initializeForm(){
     this.form = this.fb.group({
-      cep: new FormControl(''),
+      cep:  ['', Validators.required],
       logradouro:new FormControl(''),
       bairro: new FormControl(''),
       cidade: new FormControl(''),
@@ -26,4 +31,30 @@ export class FormularioComponent implements OnInit {
     })
   }
 
+  observePreenchimentoSep(){
+    this.form.get('cep')?.valueChanges.subscribe(value =>{
+      if(value?.length ==8){
+        this.buscarCep();
+      }
+    })
+  }
+
+  buscarCep(){
+    var cep = this.form.get('cep')?.value;
+    this.viacepService.getEnderecoByCep(cep).subscribe(
+      {
+        next: (response)=>{
+          this.form.patchValue({
+            logradouro:response.logradouro,
+            bairro:response.bairro,
+            cidade: response.localidade,
+            estado: response.uf,
+          })
+        },
+        error: ()=>{
+          console.log("Ocorreu um erro");
+        }
+      }
+    )
+  }
 }

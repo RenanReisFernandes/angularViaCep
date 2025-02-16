@@ -1,7 +1,7 @@
 <div>
 
   <h2>Formulário de Endereço</h2>
-  <form>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="cep">CEP:</label>
       <input type="text" id="cep" name="cep" required formControlName="cep">

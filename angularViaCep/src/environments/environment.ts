@@ -1,3 +1,3 @@
 export const environment = {
-  viacepUrl : "viacep.com.br/ws/"
+  viacepUrl : "https://viacep.com.br/ws/"
 };
